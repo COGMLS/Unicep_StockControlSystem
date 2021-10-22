@@ -1,0 +1,107 @@
+{
+    //Files Settings
+    "files.encoding": "utf8bom",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "files.autoGuessEncoding": true,
+    //C++ Plugins Settings
+    "C_Cpp.default.cStandard": "c17",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.workspaceParsingPriority": "low",
+    "C_Cpp.default.intelliSenseMode": "windows-msvc-x64",
+    "C_Cpp.loggingLevel": "Debug",
+    "C_Cpp.updateChannel": "Default",
+    "[c]": {
+        "files.encoding": "utf16le",
+        "files.autoGuessEncoding": true
+    },
+    "[cpp]": {
+        "files.encoding": "utf16le",
+        "files.autoGuessEncoding": true
+    },
+    //Markdown Settings
+    "[markdown]": {
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": true,
+        "editor.suggest.preview": true,
+        "files.encoding": "utf8"
+    },
+    //PowerShell Setting
+    "powershell.debugging.createTemporaryIntegratedConsole": true,
+    "[powershell]": {
+        "debug.saveBeforeStart": "allEditorsInActiveGroup",
+        "editor.semanticHighlighting.enabled": "configuredByTheme",
+        "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?",
+        "files.encoding": "utf8bom",
+        "files.eol": "\r\n"
+    },
+    //Editor Code editing Settings
+    "editor.fontFamily": "Cascadia Code, Consolas, 'Courier New', monospace",   //The first font indentified by VSCode will be used.
+    "editor.fontSize": 14,
+    "editor.fontWeight": "normal",
+    "editor.fontLigatures": true,
+    "editor.detectIndentation": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.tabCompletion": "off",
+    "editor.suggestSelection": "first",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.rulers": [],    //Empty to no ruler, or put numbers to identify the pixel space for a new ruler.
+    "editor.renderWhitespace": "selection",
+    "editor.wordWrap": "off",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    //IntelliCode Settings
+    "vsintellicode.typescript.completionsEnabled": true,
+    "vsintellicode.python.completionsEnabled": true,
+    "vsintellicode.features.python.deepLearning": "default",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    //Workbench and Explorer Settings
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Default Dark+",
+    "explorer.compactFolders": false,
+    //SCM
+    "scm.alwaysShowRepositories": true,
+    "scm.repositories.visible": 10,
+    "scm.alwaysShowActions": true,
+    "scm.defaultViewMode": "list",
+    //Git
+    "git.enabled": true,
+    "git.enableStatusBarSync": true,
+    "git.decorations.enabled": true,
+    "git.showProgress": true,
+    "git.autorefresh": true,
+    //Python Settings
+    "python.languageServer": "Pylance",
+    "python.pythonPath": "C:\\Users\\mlsma\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+    "python.defaultInterpreterPath": "C:\\Users\\mlsma\\AppData\\Local\\Microsoft\\WindowsApps\\python3.9.exe",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoSearchPaths": true,
+    "python.autoUpdateLanguageServer": true,
+    "[python]": {
+        "files.encoding": "utf8",
+        "files.eol": "auto",
+        "files.autoGuessEncoding": true,
+    },
+    //Terminal Settings
+    "terminal.explorerKind": "integrated",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.enableBell": true,
+    "terminal.integrated.fontFamily": "Consolas, Cascadia Code",    //The first font indentified by VSCode will be used.
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontWeight": "normal",
+    "terminal.integrated.gpuAcceleration": "auto",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "block",
+    "terminal.integrated.copyOnSelection": false,
+    //Debug Settings
+    "debug.showInStatusBar": "onFirstSessionStart",
+    "debug.showSubSessionsInToolBar": false,
+    "debug.terminal.clearBeforeReusing": true,
+    "debug.confirmOnExit": "always",
+    //Java Settings
+    "[java]": {
+        "files.encoding": "utf8",
+        "files.eol": "\r\n",
+    }
+}
