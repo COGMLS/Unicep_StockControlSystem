@@ -16,6 +16,7 @@ public class Reserva
     private String TransportadoraSel;
     private boolean ProdutoEnviado;
 
+    //Getters:
     public List<Produto> getListaCompras()
     {
         return this.Lista_Compra;
@@ -24,7 +25,9 @@ public class Reserva
     {
         return this.ID_Usuario;
     };
-    private void setListaCompras()
+
+    //Setters:
+    private void setListaCompras(int size)
     {
 
     };
@@ -32,19 +35,60 @@ public class Reserva
     {
         this.ID_Usuario = ID;
     };
+
+    //Funções de controle da reserva de produtos:
+
+    //Verifica se a compra foi realizada.
     private void VerificarCompra()
     {
 
     };
+    private void DevolverProdutosAoEstoque()
+    {
+
+    };
+
+    //Função que contata se a compra foi finalizada.
+    public void FinalizarCompra(boolean ConfirmarCompra)
+    {
+        if(ConfirmarCompra == true)
+        {
+            this.CompraAutorizada = true;
+        }
+        else
+        {
+            this.CompraAutorizada = false;
+        }
+    }
+
+    //Funções de envio para a transportadora.
     private void ContatarTransportadora()
     {
-
+        if(this.CompraAutorizada == true)
+        {
+            //Contata a transportadora e recebe um retorno de confirmação.
+            
+        }
     };
-    private void VerificarEnvio()
+
+    //Verifica o envio à transportadora.
+    public void VerificarEnvio()
+    {
+        if()
+    };
+
+
+    
+    //Funções de conctrole da reserva:
+    public void AddReserva(int Produto_ID, int Quant)
+    {
+        
+    };
+    public void RemReserva(int Produto_ID, int Quant)
     {
 
     };
-    private void DevolverProdutosAoEstoque()
+    public void ListReserva()
     {
 
     };
