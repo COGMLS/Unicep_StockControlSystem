@@ -1,16 +1,17 @@
-package stockControlPackage;
+package reservaPackage;
 
 import java.util.List;
+import produtoPackage.Produto;
 
 /**Classe Reserva
  * ---------------------
  * Classe destinada para o gerenciamento
- * da reserva de produtos do estoque.
+ * da reserva de produtos do estoque para
+ *  o cliente.
 */
-
 public class Reserva
 {
-    private int ID_Usuario;
+    private int ID_Usuario;     //ID única para o usuário.
     private List<Produto> Lista_Compra;
     private boolean CompraAutorizada;
     private String TransportadoraSel;

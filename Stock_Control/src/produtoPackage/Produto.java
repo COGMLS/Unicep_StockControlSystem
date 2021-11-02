@@ -1,4 +1,8 @@
-package stockControlPackage;
+package produtoPackage;
+
+import reposicaoPackage.Reposicao;
+import produtoPackage.ProcuraProdutoEnum;
+import produtoPackage.DispEnum;
 
 /**Classe Produto
  *-------------------------------
@@ -14,32 +18,35 @@ public class Produto
     private String MarcaProduto;
     private int Quantidade;
     private float Preco;
-    private Enum ProcuraDoProduto;
+    private ProcuraProdutoEnum ProcuraDoProduto;
+
+    //Métricas de mercado:
+    private int Procura;
 
     //Getters:
     public String getNomeProduto()
     {
-        this.NomeProduto;
+        return this.NomeProduto;
     };
     public String getModeloProduto()
     {
-        this.Modelo_Produto;
+        return this.Modelo_Produto;
     };
     public String getMarcaProduto()
     {
-        this.MarcaProduto;
+        return this.MarcaProduto;
     };
     public int getIDProduto()
     {
-        this.ID_Produto;
+        return this.ID_Produto;
     };
     public int getQuantidade()
     {
-        this.Quantidade;
+        return this.Quantidade;
     };
     public float getPreco()
     {
-        this.Preco;
+        return this.Preco;
     };
 
     //Setters:
@@ -70,19 +77,22 @@ public class Produto
 
     //Métodos de controle de Produtos:
 
-    //Define a produra pelo produto.
-    public Enum getProcuraDeProduto()
+    //Recebe o status da procura de um produto.
+    public ProcuraProdutoEnum getProcuraDeProduto()
     {
 
     };
+    //Define a produra pelo produto.
     private void setProcuraDeProduto()
     {
 
     };
-    public Enum VerificarDisponibilidade()
+    //Envia o status da disponibilidade do produto
+    public DispEnum VerificarDisponibilidade()
     {
 
     };
+    //Reserva uma quantidade N do produto para o usuário
     public Reserva Reservar()
     {
         Reposicao.ReporEstoque();
