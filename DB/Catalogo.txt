@@ -1,0 +1,5 @@
+﻿#Deixar os valores de CADA PRODUTO separados por vírgulas.
+#Cada linha representa um produto diferente.
+#MODELO:
+#NomeProduto, Modelo_Produto, MarcaProduto, Preço
+
