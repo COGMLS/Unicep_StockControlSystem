@@ -1,5 +1,7 @@
 package stockControlPackage;
 
+import produtoPackage.Produto;
+
 public class MainClass
 {
 	public static void main(String[] args)
@@ -20,6 +22,7 @@ public class MainClass
 		}
 		else
 		{
+
 			// Loop de funcionamento em modo de interação:
 			String userEntry;
 			do

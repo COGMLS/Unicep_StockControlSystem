@@ -26,19 +26,19 @@ public class Produto
     private int Procura;    //Métrica de mercado
 
     // Construtor vazio
-    Produto()
+    public Produto()
     {
         this.Quantidade = -1;     //Define que o objeto foi inicializado na memória, mas não está pronto para uso
     }
 
     // Construtor para a criação do banco de dados
-    Produto(String NomeProduto, int ID_Produto, String Modelo, String Marca, int QuantidadeComprada, float PrecoUni, int QuantRec, ProcuraProdutoEnum ProcuraEnum, int ProcuraInt)
+    public Produto(String NomeProduto, int ID_Produto, String Modelo, String Marca, int QuantidadeDisponivel, float PrecoUni, int QuantRec, ProcuraProdutoEnum ProcuraEnum, int ProcuraInt)
     {
         this.NomeProduto = NomeProduto;
         this.ID_Produto = ID_Produto;
         this.Modelo_Produto = Modelo;
         this.MarcaProduto = Marca;
-        this.Quantidade = QuantidadeComprada;
+        this.Quantidade = QuantidadeDisponivel;
         this.Preco = PrecoUni;
         this.QuantRecomendada = QuantRec;
         this.ProcuraDoProduto = ProcuraEnum;
@@ -46,7 +46,7 @@ public class Produto
     }
 
     // Contrutor para a Reserva
-    Produto(String NomeProduto, int ID_Produto, String Modelo, String Marca, int QuantidadeComprada, float PrecoUni)
+    public Produto(String NomeProduto, int ID_Produto, String Modelo, String Marca, int QuantidadeComprada, float PrecoUni)
     {
         this.NomeProduto = NomeProduto;
         this.ID_Produto = ID_Produto;
@@ -172,7 +172,7 @@ public class Produto
 
                 Reposicao.ReporEstoque();   //Temporário. Envia pedido de reposição de estoque.
 
-                return Obj;
+                return Obj; 
             }
         }
         else

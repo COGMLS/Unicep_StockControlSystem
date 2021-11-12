@@ -4,41 +4,22 @@
 #NomeProduto, Modelo_Produto, MarcaProduto, Preço
 -------///--------------------------///---------------------------------
 Intel Core i9-9900KF, BX80684I99900KF, Intel, 3000.00
-
 Intel Core i7-9700K,  BX80684I79700K, Intel, 1899.90
-
 NVIDIA GeForce RTX 2060 D6 6G, GV-N2060D6-6GD, Gigabyte, 3600.00
-
 NVIDIA GeForce RTX 3070 Twin Edge 8GB, ZT-A30700E-10PLHR, Zotac, 7500.00
-
 Teclado Logitech K120, K120, Logitech, 70.00
-
 Teclado Mecânico Gamer HyperX Alloy Origins Core, HX-KB7RDX-BR, HyperX, 650.00
-
 Mouse Logitech M90 Preto 1000DPI, 910-004053, Logitech, 36.00
-
 Mouse Gamer Redragon Cobra, M711, Redragon, 140.00
-
 Headphone JBL Club700, Club700BT, JBL, 900.00
-
 Headset Gamer Havit, HV-H2002D, Havid, 260.00
-
 HD Seagate BarraCuda 2TB, ST2000DM008, Seagate, 400.00
-
 HD Seagate Externo Portátil Expansion USB 3.0 1TB, STEA1000400, Seagate, 440.00
-
 SSD Kingston A400 240GB, SA400S37/240G, Kingston, 300.00
-
 SSD Kingston NV1 500GB M.2 2280 NVMe, SNVS/500G,  Kingston, 430.00
-
 Notebook Asus ZenBook 14 Intel Core I5-1135G7, UX425EA-BM319T, ASUS, 7225.00
-
 Notebook ASUS X515JA-EJ1045T Intel Core i5-1035G1, X515JA-EJ1045T, ASUS, 4444.00
-
 Nintendo Switch 32GB 1x Joycon Neon Azul/Vermelho, HBDSKABA2, Nintendo, 2100.00
-
 Console Microsoft Xbox Series S 512GB Branco,  RRS-00006, Microsoft, 3200.00
-
 Cadeira Gamer Husky Gaming Snow, HSN-BK, Husky Gaming, 560.00
-
 Cadeira Gamer Husky Gaming Blizzard RGB,  HBL-RGB, Husky, 2020.00
