@@ -83,27 +83,27 @@ public class Produto
     };
 
     //Setters:
-    private void setNomeProduto(String NomeP)
+    protected void setNomeProduto(String NomeP)
     {
         this.NomeProduto = NomeP;
     };
-    private void setModeloProduto(String Modelo)
+    protected void setModeloProduto(String Modelo)
     {
         this.Modelo_Produto = Modelo;
     };
-    private void setMarcaProduto(String Marca)
+    protected void setMarcaProduto(String Marca)
     {
         this.MarcaProduto = Marca;
     };
-    private void setIDProduto(int ID)
+    protected void setIDProduto(int ID)
     {
         this.ID_Produto = ID;
     };
-    private void setQuantidade(int Quant)
+    protected void setQuantidade(int Quant)
     {
         this.Quantidade = Quant;
     };
-    private void setPreco(float NovoPreco)
+    protected void setPreco(float NovoPreco)
     {
         this.Preco = NovoPreco;
     };
@@ -180,4 +180,10 @@ public class Produto
             return null;
         }
     };
+
+    //Recebe a devolução do produto ao estoque
+    public void ReceberProduto()
+    {
+        
+    }
 }
