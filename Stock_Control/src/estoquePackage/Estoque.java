@@ -3,14 +3,16 @@ package estoquePackage;
 import java.util.*;
 import produtoPackage.Produto;
 import produtoPackage.DispEnum;
+import produtoPackage.ProcuraProdEnumAux;
 import produtoPackage.ProcuraProdutoEnum;
 
-public class Estoque 
+public class Estoque extends Produto
 {
     //Reserva espaço para a criação do banco de dados de produtos
     ArrayList<Produto> ProdBD;
     
-    Estoque()
+    //Construtor do banco de dados do estoque. NOTA: parâmetros do estoque são estáticos para fins de testes.
+    public Estoque()
     {
         Produto Obj00 = new Produto("Intel Core i9-9900KF", 1, "BX80684I99900KF", "Intel", 25, 3000.00f, 100, ProcuraProdutoEnum.BAIXA, 1);
         Produto Obj01 = new Produto("Intel Core i7-9700K", 2, "BX80684I79700K", "Intel", 120, 1899.90f, 250, ProcuraProdutoEnum.ALTA, 2);
@@ -24,14 +26,14 @@ public class Estoque
         Produto Obj09 = new Produto("Headset Gamer Havit", 10, "HV-H2002D", "Havid", 5, 260.00f, 160, ProcuraProdutoEnum.ALTA, 2);
         Produto Obj10 = new Produto("HD Seagate BarraCuda 2TB", 11, "ST2000DM008", "Seagate", 326, 400.00f, 600, ProcuraProdutoEnum.ALTA, 2);
         Produto Obj11 = new Produto("HD Seagate Externo Portátil Expansion USB 3.0 1TB", 12, "STEA1000400", "Seagate", 120, 300.00f, 450, ProcuraProdutoEnum.ALTA, 2);
-        Produto Obj12 = new Produto("SSD Kingston A400 240GB", 13, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
-        Produto Obj13 = new Produto("SSD Kingston NV1 500GB M.2 2280 NVMe", 14, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
-        Produto Obj14 = new Produto("Notebook Asus ZenBook 14 Intel Core I5-1135G7", 15, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
-        Produto Obj15 = new Produto("Notebook ASUS X515JA-EJ1045T Intel Core i5-1035G1", 16, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
-        Produto Obj16 = new Produto("Nintendo Switch 32GB 1x Joycon Neon Azul/Vermelho", 17, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
-        Produto Obj17 = new Produto("Console Microsoft Xbox Series S 512GB Branco", 18, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
-        Produto Obj18 = new Produto("Cadeira Gamer Husky Gaming Snow", 19, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
-        Produto Obj19 = new Produto("Cadeira Gamer Husky Gaming Blizzard RGB", 20, "Modelo", "Marca", QuantidadeComprada, PrecoUni, QuantRec, ProcuraEnum, ProcuraInt);
+        Produto Obj12 = new Produto("SSD Kingston A400 240GB", 13, "SA400S37/240G", "Kingston", 103, 300.00f, 500, ProcuraProdutoEnum.ALTA, 2);
+        Produto Obj13 = new Produto("SSD Kingston NV1 500GB M.2 2280 NVMe", 14, "SNVS/500G", "Kingston", 85, 430.00f, 250, ProcuraProdutoEnum.MEDIA, 1);
+        Produto Obj14 = new Produto("Notebook Asus ZenBook 14 Intel Core I5-1135G7", 15, "UX425EA-BM319T", "ASUS", 30, 7225.00f, 300, ProcuraProdutoEnum.MEDIA, 1);
+        Produto Obj15 = new Produto("Notebook ASUS X515JA-EJ1045T Intel Core i5-1035G1", 16, "X515JA-EJ1045T", "ASUS", 150, 4444.00f, 450, ProcuraProdutoEnum.ALTA, 2);
+        Produto Obj16 = new Produto("Nintendo Switch 32GB 1x Joycon Neon Azul/Vermelho", 17, "HBDSKABA2", "Nintendo", 350, 2100.00f, 550, ProcuraProdutoEnum.MEDIA, 1);
+        Produto Obj17 = new Produto("Console Microsoft Xbox Series S 512GB Branco", 18, "RRS-00006", "Microsoft", 500, 2750.00f, 1200, ProcuraProdutoEnum.ALTA, 2);
+        Produto Obj18 = new Produto("Cadeira Gamer Husky Gaming Snow", 19, "HSN-BK", "Husky Gaming", 150, 560.00f, 650, ProcuraProdutoEnum.MEDIA, 1);
+        Produto Obj19 = new Produto("Cadeira Gamer Husky Gaming Blizzard RGB", 20, "HBL-RGB", "Husky", 50, 2020.00f, 80, ProcuraProdutoEnum.BAIXA, 0);
 
         ProdBD = new ArrayList<Produto>(20);
 
@@ -55,5 +57,54 @@ public class Estoque
         ProdBD.add(17, Obj17);
         ProdBD.add(18, Obj18);
         ProdBD.add(19, Obj19);
+    }
+
+    public void ListarProdutos()
+    {
+        System.out.println("Produtos encontrados:\n--------------------------------------------------");
+        for (Produto produto : ProdBD)
+        {
+            System.out.println(TodasInfoProduto(produto));
+        }
+        System.out.println("--------------------------------------------------");
+    }
+
+    public void encontrarID(int ID)
+    {
+        System.out.println("Pesquisando ID de produto: " + ID);
+
+        boolean ProdutoEncontrado = false;
+        for (Produto produto : ProdBD)
+        {
+            if(produto.getIDProduto() == ID)
+            {
+                System.out.println(TodasInfoProduto(produto));
+                ProdutoEncontrado = true;
+                break;
+            }
+        }
+
+        if(ProdutoEncontrado == false)
+        {
+            System.out.println("  Produto não encontrado!");
+        }
+    }
+
+    public Produto ComprarProduto()
+
+    private String TodasInfoProduto(Produto produto)
+    {
+        String ProdutoInfo = "";
+
+        //Pega as informações
+        ProdutoInfo += Integer.toString(produto.getIDProduto()) + " | ";
+        ProdutoInfo += produto.getNomeProduto() + " | ";
+        ProdutoInfo += produto.getModeloProduto() + " | ";
+        ProdutoInfo += produto.getMarcaProduto() + " | ";
+        ProdutoInfo += "R$ " + Float.toString(produto.getPreco()) + " | ";
+        ProdutoInfo += Integer.toString(produto.getQuantidade()) + " | ";
+        ProdutoInfo += ProcuraProdEnumAux.ProcuraProdutoE2Str(produto.getProcuraDeProduto());
+
+        return ProdutoInfo;
     }
 }
