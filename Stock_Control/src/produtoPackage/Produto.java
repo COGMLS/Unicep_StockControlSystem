@@ -60,53 +60,63 @@ public class Produto
     public String getNomeProduto()
     {
         return this.NomeProduto;
-    };
+    }
+    
     public String getModeloProduto()
     {
         return this.Modelo_Produto;
-    };
+    }
+
     public String getMarcaProduto()
     {
         return this.MarcaProduto;
-    };
+    }
+
     public int getIDProduto()
     {
         return this.ID_Produto;
-    };
+    }
+
     public int getQuantidade()
     {
         return this.Quantidade;
-    };
+    }
+
     public float getPreco()
     {
         return this.Preco;
-    };
+    }
 
     //Setters:
     protected void setNomeProduto(String NomeP)
     {
         this.NomeProduto = NomeP;
-    };
+    }
+
     protected void setModeloProduto(String Modelo)
     {
         this.Modelo_Produto = Modelo;
-    };
+    }
+
     protected void setMarcaProduto(String Marca)
     {
         this.MarcaProduto = Marca;
-    };
+    }
+
     protected void setIDProduto(int ID)
     {
         this.ID_Produto = ID;
-    };
+    }
+
     protected void setQuantidade(int Quant)
     {
         this.Quantidade = Quant;
-    };
+    }
+
     protected void setPreco(float NovoPreco)
     {
         this.Preco = NovoPreco;
-    };
+    }
 
     //Métodos de controle de Produtos:
 
@@ -114,12 +124,14 @@ public class Produto
     public ProcuraProdutoEnum getProcuraDeProduto()
     {
         return this.ProcuraDoProduto;
-    };
+    }
+
     //Define a produra pelo produto.
     private void setProcuraDeProduto(ProcuraProdutoEnum ProcuraEnum)
     {
         this.ProcuraDoProduto = ProcuraEnum;
-    };
+    }
+
     //Envia o status da disponibilidade do produto
     public DispEnum VerificarDisponibilidade()
     {
@@ -153,7 +165,8 @@ public class Produto
         {
             return DispEnum.INDISPONIVEL;   // Em caso de uma falha no estoque, impedir a possibilidade de compra.
         }
-    };
+    }
+
     //Reserva uma quantidade N do produto para o usuário
     public Produto Reservar(int ReservarN)
     {
@@ -179,11 +192,11 @@ public class Produto
         {
             return null;
         }
-    };
+    }
 
     //Recebe a devolução do produto ao estoque
-    public void ReceberProduto()
+    public void ReceberProduto(int DevolverNumProdutos)
     {
-        
+        this.Quantidade += DevolverNumProdutos;
     }
 }
