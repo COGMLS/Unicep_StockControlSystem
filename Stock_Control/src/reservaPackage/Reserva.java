@@ -1,6 +1,8 @@
 package reservaPackage;
 
-import java.util.List;
+import java.util.*;
+
+import estoquePackage.Estoque;
 import produtoPackage.Produto;
 
 /**Classe Reserva
@@ -12,7 +14,7 @@ import produtoPackage.Produto;
 public class Reserva
 {
     private int ID_Usuario;     //ID única para o usuário.
-    private List<Produto> Lista_Compra;
+    private ArrayList<Produto> Lista_Compra;
     private boolean CompraAutorizada;
     private String TransportadoraSel;
     private boolean ProdutoEnviado;
@@ -21,21 +23,21 @@ public class Reserva
     public List<Produto> getListaCompras()
     {
         return this.Lista_Compra;
-    };
+    }
     public int getIDUsuario()
     {
         return this.ID_Usuario;
-    };
+    }
 
     //Setters:
-    private void setListaCompras(int size)
+    public void setListaCompras(int size)
     {
-
-    };
-    private void setIDUsuario(int ID)
+        this.Lista_Compra = new ArrayList<Produto>(size);
+    }
+    public void setIDUsuario(int ID)
     {
         this.ID_Usuario = ID;
-    };
+    }
 
     //Funções de controle da reserva de produtos:
 
@@ -43,11 +45,62 @@ public class Reserva
     private void VerificarCompra()
     {
 
-    };
-    private void DevolverProdutosAoEstoque()
-    {
+    }
 
-    };
+    //Verifica a adição dos produtos desejados à lista de compras
+    public void RetirarProdutosDoEstoque(Estoque estoque, int IDProd, int ReservarQuant)
+    {
+        Produto temp = estoque.RetirarDoEstoque(IDProd, ReservarQuant);
+
+        if(temp != null)
+        {
+            Lista_Compra.add(temp);
+        }
+    }
+
+    //Verifica a devolução dos produtos desejados
+    public void DevolverProdutosAoEstoque(Estoque estoque, int IDProd, int DevolverQuant)
+    {
+        boolean ProdutoEncontrado = false;
+
+        for (Produto produto : Lista_Compra)
+        {
+            if(produto.getIDProduto() == IDProd)
+            {
+                ProdutoEncontrado = true;
+
+                if(DevolverQuant <= produto.getQuantidade() && DevolverQuant > 0)
+                {
+                    //Contata o estoque para devolver os produtos.
+                    estoque.RetornarAoEstoque(IDProd, DevolverQuant);
+                }
+                else if(DevolverQuant > produto.getQuantidade())
+                {
+                    System.out.println("A quantidade a devolver não existe na reserva.");
+                }
+                else if(DevolverQuant <= 0)
+                {
+                    System.out.println("Entre com um valor válido entre 1 até " + produto.getQuantidade());
+                }
+                else
+                {
+                    System.out.println("Não foi possível devolver ao estoque o produto.");
+                }
+                break;
+            }
+        }
+
+        if(!ProdutoEncontrado)
+        {
+            System.out.println("Não foi encontrado o produto com ID " + IDProd + " na lista de compras.");
+        }
+    }
+
+    //Lista os produtos reservados
+    public void ListReserva()
+    {
+        
+    }
 
     //Função que contata se a compra foi finalizada.
     public void FinalizarCompra(boolean ConfirmarCompra)
@@ -70,27 +123,17 @@ public class Reserva
             //Contata a transportadora e recebe um retorno de confirmação.
             
         }
-    };
+    }
 
     //Verifica o envio à transportadora.
     public void VerificarEnvio()
     {
-        if()
-    };
-
-
-    
-    //Funções de conctrole da reserva:
-    public void AddReserva(int Produto_ID, int Quant)
-    {
-        
-    };
-    public void RemReserva(int Produto_ID, int Quant)
-    {
-
-    };
-    public void ListReserva()
-    {
-
-    };
+        if(this.CompraAutorizada == true)
+        {
+            if(this.ProdutoEnviado == true)
+            {
+                
+            }
+        }
+    }
 }
