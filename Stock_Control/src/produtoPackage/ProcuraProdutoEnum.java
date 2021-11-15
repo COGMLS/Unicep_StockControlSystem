@@ -2,7 +2,7 @@ package produtoPackage;
 
 public enum ProcuraProdutoEnum
 {
-    INDISPONIVEL,
+    INDISPONIVEL,       //Informção indisponível.
     BAIXA,
     MEDIA,
     ALTA

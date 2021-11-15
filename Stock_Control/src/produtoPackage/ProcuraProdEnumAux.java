@@ -1,7 +1,5 @@
 package produtoPackage;
 
-import produtoPackage.ProcuraProdutoEnum;
-
 public class ProcuraProdEnumAux
 {
     //Converte o valor de ProcuraProdutoEnum para string
@@ -31,9 +29,13 @@ public class ProcuraProdEnumAux
         {
             return ProcuraProdutoEnum.MEDIA;
         }
-        else
+        else if(Srt.equals("ALTA"))
         {
             return ProcuraProdutoEnum.ALTA;
+        }
+        else
+        {
+            return ProcuraProdutoEnum.INDISPONIVEL;
         }
     }
 }
