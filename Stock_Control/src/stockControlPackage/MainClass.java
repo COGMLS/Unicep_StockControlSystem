@@ -1,6 +1,8 @@
 package stockControlPackage;
 
 import produtoPackage.Produto;
+import clientePackage.Cliente;
+import estoquePackage.Estoque;
 
 public class MainClass
 {
@@ -12,23 +14,17 @@ public class MainClass
 		System.out.println("Professor: Wesley Pecoraro\nCurso: Eng. de Computação\nDisciplina: Programação Orientada ao Objeto");
 
 		// Instancia a lista de produtos que estará disponível como DB.
+		Estoque estoque = new Estoque();
 
-		if(args.length > 0 && args[0] == "-SimulationMode")
+		// Inicializa o cliente
+		Cliente cliente = new Cliente(500);
+
+		// Loop de funcionamento em modo de interação:
+		String userEntry = "";
+		do
 		{
-			// Instancia a uma lista de usuários.
-
-			// Loop para o modo de simulação:
-
+			
 		}
-		else
-		{
-
-			// Loop de funcionamento em modo de interação:
-			String userEntry;
-			do
-			{
-
-			}while(userEntry != "Sair");
-		}
+		while(userEntry != "Sair");
 	}
 }
