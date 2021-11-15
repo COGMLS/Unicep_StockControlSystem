@@ -9,7 +9,7 @@ import produtoPackage.ProcuraProdutoEnum;
 public class Estoque extends Produto
 {
     //Reserva espaço para a criação do banco de dados de produtos
-    ArrayList<Produto> ProdBD;
+    private ArrayList<Produto> ProdBD;
     
     //Construtor do banco de dados do estoque. NOTA: parâmetros do estoque são estáticos para fins de testes.
     public Estoque()
@@ -59,6 +59,7 @@ public class Estoque extends Produto
         ProdBD.add(19, Obj19);
     }
 
+    //Lista os produtos registrados no estoque.
     public void ListarProdutos()
     {
         System.out.println("Produtos encontrados:\n--------------------------------------------------");
@@ -69,6 +70,7 @@ public class Estoque extends Produto
         System.out.println("--------------------------------------------------");
     }
 
+    //Busca a ID de um produto.
     public void encontrarID(int ID)
     {
         System.out.println("Pesquisando ID de produto: " + ID);
@@ -86,12 +88,72 @@ public class Estoque extends Produto
 
         if(ProdutoEncontrado == false)
         {
-            System.out.println("  Produto não encontrado!");
+            System.out.println("AVISO: Produto não encontrado!");
         }
     }
 
-    public Produto ComprarProduto()
+    //Retira o produto de IDProd, com a quantidade RetirarQuant a ser retirada do estoque.
+    public Produto RetirarDoEstoque(int IDProd, int RetirarQuant)
+    {
+        boolean ProdutoEncontrado = false;
 
+        for (Produto produto : ProdBD)
+        {
+            if(produto.getIDProduto() == IDProd)
+            {
+                ProdutoEncontrado = true;
+
+                if(produto.getQuantidade() >= RetirarQuant)
+                {
+                    //Cria um produto para representar na lista de compras do usuário
+                    Produto temp = new Produto(produto.getNomeProduto(), produto.getIDProduto(), produto.getModeloProduto(), produto.getMarcaProduto(), RetirarQuant, produto.getPreco());
+
+                    //Retira a quantidade de produtos reservada.
+                    produto.Reservar(RetirarQuant);
+
+                    return temp;
+                }
+                else
+                {
+                    System.out.println("Não há produtos suficientes para reservar, entre com um valor entre 1 a " + produto.getQuantidade());
+                }
+
+                break;
+            }
+        }
+
+        //Caso o produto não seja localizado
+        if(!ProdutoEncontrado)
+        {
+            System.out.println("Não foi possível encontrar o produto desejado.");
+        }
+
+        return null;
+    }
+
+    //Retorna o produto de IDProd, com a quantidade QuantDevolvida a ser retornada ao estoque.
+    public void RetornarAoEstoque(int IDProd, int QuantDevolvida)
+    {
+        boolean ProdutoEncontrado = false;
+
+        for (Produto produto : ProdBD)
+        {
+            if(produto.getIDProduto() == IDProd)
+            {
+                //Retira a quantidade de produtos reservada.
+                produto.ReceberProduto(QuantDevolvida);
+
+                break;
+            }
+        }
+
+        if(!ProdutoEncontrado)
+        {
+            System.out.println("Não foi possível encontrar o produto desejado.");
+        }
+    }
+
+    //Extrai as informações do produto para o usuário.
     private String TodasInfoProduto(Produto produto)
     {
         String ProdutoInfo = "";
