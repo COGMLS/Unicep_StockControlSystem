@@ -2,6 +2,7 @@ package estoquePackage;
 
 import java.util.*;
 import produtoPackage.Produto;
+import reposicaoPackage.Reposicao;
 import produtoPackage.DispEnum;
 import produtoPackage.ProcuraProdEnumAux;
 import produtoPackage.ProcuraProdutoEnum;
@@ -70,7 +71,7 @@ public class Estoque extends Produto
         System.out.println("--------------------------------------------------");
     }
 
-    //Busca a ID de um produto.
+    //Busca a ID de um produto e exibe as suas informações.
     public void encontrarID(int ID)
     {
         System.out.println("Pesquisando ID de produto: " + ID);
@@ -153,6 +154,35 @@ public class Estoque extends Produto
         }
     }
 
+    //Reporta ao estoque que os produtos foram adiquiridos
+    public void ConfirmarRetiradaPermanente(ArrayList<Produto> ListaCompras, boolean CompraFinalizada)
+    {
+        //Verifica os itens adiquiridos e calcula a sua procura e se há necessidade de repor o estoque.
+        for (Produto produtoComprado : ListaCompras)
+        {
+            for (Produto produtoEstoque : this.ProdBD)
+            {
+                if(produtoComprado.getIDProduto() == produtoEstoque.getIDProduto())
+                {
+                    //Caso a compra seja efetuada, rever a busca pelo produto e a necessidade de repor o estoque.
+                    if(CompraFinalizada == true)
+                    {
+                        //Define a procura do produto, após a retirada definitiva.
+                        CalcularProcuraProduto(produtoEstoque, produtoComprado.getQuantidade());
+
+                        //Verifica se o estoque precisa ser reposto.
+                        ChecarEstoqueProduto(produtoEstoque);
+                    }
+                    else    //Caso a compra não seja efetuada, retornar TODOS os produtos ao estoque.
+                    {
+                        //Retorna os produtos ao estoque.
+                        produtoEstoque.ReceberProduto(produtoComprado.getQuantidade());
+                    }
+                }
+            }
+        }
+    }
+
     //Extrai as informações do produto para o usuário.
     private String TodasInfoProduto(Produto produto)
     {
@@ -168,5 +198,145 @@ public class Estoque extends Produto
         ProdutoInfo += ProcuraProdEnumAux.ProcuraProdutoE2Str(produto.getProcuraDeProduto());
 
         return ProdutoInfo;
+    }
+
+    //Define a procura do produto após a retirada definitiva do esetoque.
+    private void CalcularProcuraProduto(Produto produto, int QuantComprada)
+    {
+        int QuantOriginal = QuantComprada + produto.getQuantidade();
+        float PercComprada = QuantComprada / QuantOriginal;
+
+        if(PercComprada <= 0.33f)
+        {
+            produto.setProcuraDeProduto(ProcuraProdutoEnum.BAIXA);
+        }
+        else if(PercComprada > 0.33f && PercComprada <= 0.66f)
+        {
+            produto.setProcuraDeProduto(ProcuraProdutoEnum.MEDIA);
+        }
+        else if(PercComprada > 0.66f && PercComprada <= 1.0f)
+        {
+            produto.setProcuraDeProduto(ProcuraProdutoEnum.ALTA);
+        }
+        else
+        {
+            produto.setProcuraDeProduto(ProcuraProdutoEnum.INDISPONIVEL);
+        }
+    }
+
+    //Verifica se a quantidade disponível no estoque é suficiente.
+    private void ChecarEstoqueProduto(Produto produto)
+    {
+        DispEnum Disponibilidade = produto.VerificarDisponibilidade();
+        ProcuraProdutoEnum Procura = produto.getProcuraDeProduto();
+
+        int ReporQuant = produto.getQuantidadeRecomendada() - produto.getQuantidade();
+
+        //Verifica se é preciso repor.
+        if(PrecisaRepor(Disponibilidade, Procura))
+        {
+            ReporQuant = ReporQuantRecomendada(ReporQuant, Procura);
+
+            //Repõe o estoque de acordo com as métricas de produra do produto.
+            Reposicao.ReporEstoque(produto, ReporQuant);
+        }
+
+    }
+
+    //Verifica se é necessário repor o estoque.
+    private boolean PrecisaRepor(DispEnum Disponibilidade, ProcuraProdutoEnum Procura)
+    {
+        if(Disponibilidade == DispEnum.MUITOBAIXA)
+        {
+            if(Procura == ProcuraProdutoEnum.BAIXA)
+            {
+                return true;
+            }
+            else if(Procura == ProcuraProdutoEnum.MEDIA)
+            {
+                return true;
+            }
+            else if(Procura == ProcuraProdutoEnum.ALTA)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if(Disponibilidade == DispEnum.BAIXA)
+        {
+            if(Procura == ProcuraProdutoEnum.BAIXA)
+            {
+                return false;
+            }
+            else if(Procura == ProcuraProdutoEnum.MEDIA)
+            {
+                return true;
+            }
+            else if(Procura == ProcuraProdutoEnum.ALTA)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if(Disponibilidade == DispEnum.MEDIA)
+        {
+            if(Procura == ProcuraProdutoEnum.BAIXA)
+            {
+                return false;
+            }
+            else if(Procura == ProcuraProdutoEnum.MEDIA)
+            {
+                return false;
+            }
+            else if(Procura == ProcuraProdutoEnum.ALTA)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if(Disponibilidade == DispEnum.ALTA)
+        {
+            return false;
+        }
+        else if(Disponibilidade == DispEnum.MUITOALTA)
+        {
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //Define a quantidade do produto que será reposta.
+    private int ReporQuantRecomendada(int QuantRecomendada, ProcuraProdutoEnum Procura)
+    {
+        float ReporPerc = 0.0f;
+
+        if(Procura == ProcuraProdutoEnum.BAIXA)
+        {
+            ReporPerc = 0.33f;
+        }
+        else if(Procura == ProcuraProdutoEnum.MEDIA)
+        {
+            ReporPerc = 0.66f;
+        }
+        else if(Procura == ProcuraProdutoEnum.ALTA)
+        {
+            ReporPerc = 1.0f;
+        }
+
+        Float ReporQuant = QuantRecomendada * ReporPerc;
+
+        return ReporQuant.intValue();
     }
 }
