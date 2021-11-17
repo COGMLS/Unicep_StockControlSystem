@@ -82,6 +82,11 @@ public class Produto
         return this.Quantidade;
     }
 
+    public int getQuantidadeRecomendada()
+    {
+        return this.QuantRecomendada;
+    }
+
     public float getPreco()
     {
         return this.Preco;
@@ -108,12 +113,12 @@ public class Produto
         this.ID_Produto = ID;
     }
 
-    protected void setQuantidade(int Quant)
+    public void setQuantidade(int Quant)
     {
         this.Quantidade = Quant;
     }
 
-    protected void setPreco(float NovoPreco)
+    public void setPreco(float NovoPreco)
     {
         this.Preco = NovoPreco;
     }
@@ -127,7 +132,7 @@ public class Produto
     }
 
     //Define a produra pelo produto.
-    private void setProcuraDeProduto(ProcuraProdutoEnum ProcuraEnum)
+    public void setProcuraDeProduto(ProcuraProdutoEnum ProcuraEnum)
     {
         this.ProcuraDoProduto = ProcuraEnum;
     }
@@ -182,8 +187,6 @@ public class Produto
             else    // Em caso da quantidade reservada ser maior que a disponível, reservar o que estiver disponível.
             {
                 Produto Obj = new Produto(this.NomeProduto, this.ID_Produto, this.Modelo_Produto, this.MarcaProduto, this.Quantidade, this.Preco);
-
-                Reposicao.ReporEstoque();   //Temporário. Envia pedido de reposição de estoque.
 
                 return Obj; 
             }
