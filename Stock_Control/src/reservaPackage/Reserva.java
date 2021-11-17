@@ -4,6 +4,7 @@ import java.util.*;
 
 import estoquePackage.Estoque;
 import produtoPackage.Produto;
+import produtoPackage.ProcuraProdEnumAux;
 
 /**Classe Reserva
  * ---------------------
@@ -15,9 +16,9 @@ public class Reserva
 {
     private int ID_Usuario;     //ID única para o usuário.
     private ArrayList<Produto> Lista_Compra;
-    private boolean CompraAutorizada;
-    private String TransportadoraSel;
-    private boolean ProdutoEnviado;
+    private boolean CompraAutorizada = false;
+    private String TransportadoraSel = "Correios"; //Dado estático para fins de teste.
+    private boolean ProdutoEnviado = false;
 
     //Getters:
     public List<Produto> getListaCompras()
@@ -27,6 +28,10 @@ public class Reserva
     public int getIDUsuario()
     {
         return this.ID_Usuario;
+    }
+    public boolean getCompraAutorizada()
+    {
+        return this.CompraAutorizada;
     }
 
     //Setters:
@@ -38,23 +43,39 @@ public class Reserva
     {
         this.ID_Usuario = ID;
     }
+    public void setCompraAutorizada(boolean autorizada)
+    {
+        this.CompraAutorizada = autorizada;
+    }
 
     //Funções de controle da reserva de produtos:
-
-    //Verifica se a compra foi realizada.
-    private void VerificarCompra()
-    {
-
-    }
 
     //Verifica a adição dos produtos desejados à lista de compras
     public void RetirarProdutosDoEstoque(Estoque estoque, int IDProd, int ReservarQuant)
     {
         Produto temp = estoque.RetirarDoEstoque(IDProd, ReservarQuant);
 
+        //Verifica se houve o retorno do estoque.
         if(temp != null)
         {
-            Lista_Compra.add(temp);
+            boolean ProdutoEncontrado = false;
+
+            //Pesquisa na lista de compras se já existe o produto.
+            for (Produto produto : Lista_Compra)
+            {
+                //Caso o produto já esteja na lista de compras, somar as quantidades.
+                if(produto.getIDProduto() == temp.getIDProduto())
+                {
+                    produto.setQuantidade(produto.getQuantidade() + temp.getQuantidade());
+                    break;
+                }
+            }
+            
+            //Caso o produto não exista na lista de compras.
+            if(!ProdutoEncontrado)
+            {
+                Lista_Compra.add(temp);
+            }
         }
     }
 
@@ -73,6 +94,16 @@ public class Reserva
                 {
                     //Contata o estoque para devolver os produtos.
                     estoque.RetornarAoEstoque(IDProd, DevolverQuant);
+
+                    //Caso toda a quantidade do produto seja retirada, removê-lo da lista.
+                    if(DevolverQuant == produto.getQuantidade())
+                    {
+                        this.Lista_Compra.remove(produto);
+                    }
+                    else
+                    {
+                        produto.setQuantidade(produto.getQuantidade() - DevolverQuant);
+                    }
                 }
                 else if(DevolverQuant > produto.getQuantidade())
                 {
@@ -99,19 +130,60 @@ public class Reserva
     //Lista os produtos reservados
     public void ListReserva()
     {
-        
-    }
-
-    //Função que contata se a compra foi finalizada.
-    public void FinalizarCompra(boolean ConfirmarCompra)
-    {
-        if(ConfirmarCompra == true)
+        if(!this.Lista_Compra.isEmpty())
         {
-            this.CompraAutorizada = true;
+            System.out.println("Produtos reservados:\n--------------------------------------------------");
+            for (Produto produto : this.Lista_Compra)
+            {
+                System.out.println(TodasInfoProduto(produto));
+            }
+            System.out.println("--------------------------------------------------");
         }
         else
         {
-            this.CompraAutorizada = false;
+            System.out.println("Não há produtos reservados.");
+        }
+    }
+
+    //Extrai as informações do produto para o usuário.
+    private String TodasInfoProduto(Produto produto)
+    {
+        String ProdutoInfo = "";
+
+        //Pega as informações
+        ProdutoInfo += Integer.toString(produto.getIDProduto()) + " | ";
+        ProdutoInfo += produto.getNomeProduto() + " | ";
+        ProdutoInfo += produto.getModeloProduto() + " | ";
+        ProdutoInfo += produto.getMarcaProduto() + " | ";
+        ProdutoInfo += "R$ " + Float.toString(produto.getPreco()) + " | ";
+        ProdutoInfo += Integer.toString(produto.getQuantidade());
+
+        return ProdutoInfo;
+    }
+
+    //Função que contata se a compra foi finalizada.
+    public void FinalizarCompra(Estoque estoque, boolean ConfirmarCompra)
+    {
+        if(ConfirmarCompra)
+        {
+            if(this.CompraAutorizada == true)
+            {
+                ContatarTransportadora();
+
+                if(this.ProdutoEnviado)
+                {
+                    estoque.ConfirmarRetiradaPermanente(this.Lista_Compra, ConfirmarCompra);
+                    VerificarEnvio();
+                }
+            }
+            else
+            {
+                System.out.println("A compra não foi autorizada!");
+            }
+        }
+        else    //Devolve os produtos ao estoque.
+        {
+            estoque.ConfirmarRetiradaPermanente(this.Lista_Compra, ConfirmarCompra);
         }
     }
 
@@ -120,8 +192,7 @@ public class Reserva
     {
         if(this.CompraAutorizada == true)
         {
-            //Contata a transportadora e recebe um retorno de confirmação.
-            
+            this.ProdutoEnviado = true;
         }
     }
 
@@ -130,9 +201,29 @@ public class Reserva
     {
         if(this.CompraAutorizada == true)
         {
-            if(this.ProdutoEnviado == true)
+            //Para fins de teste. Simula a espera para o envio dos produtos à transportadora.
+
+            Random espera = new Random();
+
+            int limit = espera.nextInt(5 + 0) + 0;
+            int EnviarQuando = espera.nextInt(5 + 0) + 0;
+
+            for(int i = 0; i < limit; i++)
             {
-                
+                if(i == EnviarQuando)
+                {
+                    ContatarTransportadora();
+                }
+
+                if(this.ProdutoEnviado == true)
+                {
+                    System.out.println("Os produtos foram entregues à transportadora: " + this.TransportadoraSel);
+                    break;
+                }
+                else
+                {
+                    System.out.println("Aguardando o envio à transportadora...");
+                }
             }
         }
     }
